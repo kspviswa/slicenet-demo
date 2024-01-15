@@ -1,0 +1,207 @@
+[
+  {
+    "objectID": "index.html#a-mininet-like-simulator-for-network-slice-management",
+    "href": "index.html#a-mininet-like-simulator-for-network-slice-management",
+    "title": "Slicenet Demo & Dashboards",
+    "section": "A mininet like simulator for Network Slice Management",
+    "text": "A mininet like simulator for Network Slice Management"
+  },
+  {
+    "objectID": "preso.html#big-themes-in-slicenet-v0.8",
+    "href": "preso.html#big-themes-in-slicenet-v0.8",
+    "title": "Slicenet v0.8",
+    "section": "Big themes in Slicenet v0.8",
+    "text": "Big themes in Slicenet v0.8\n\nYAML based experiment topology & traffic creation\nOut of box traffic pattern options\nCSV based inference for insightful reports\nAutomation of slicelets",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---experiment-metadata",
+    "href": "preso.html#yaml-file---experiment-metadata",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Experiment Metadata",
+    "text": "YAML File - Experiment Metadata\nname: \"config1-example\"\ndescription: \"description\"\ndelay_pattern : \"exponential\" \ndelay_pattern_threshold : 2 \nepoch: 1\nName & Description of this experiment",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---traffic-metadata",
+    "href": "preso.html#yaml-file---traffic-metadata",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Traffic metadata",
+    "text": "YAML File - Traffic metadata\n\n\nname: \"config1-example\"\ndescription: \"description\"\ndelay_pattern : \"exponential\" \ndelay_pattern_threshold : 2 \nepoch: 1\nTraffic delay pattern for the incoming slicelets.\n\nIt takes 3 values :\n\ndefault\nexponential\nuniform",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---training-metadata",
+    "href": "preso.html#yaml-file---training-metadata",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Training metadata",
+    "text": "YAML File - Training metadata\nname: \"config1-example\"\ndescription: \"description\"\ndelay_pattern : \"exponential\" \ndelay_pattern_threshold : 2 \nepoch: 1\nTraining epoch count\n\nIt takes any non-negative value and make slicenet to repeat this experiment for this number of items",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---infrastructure",
+    "href": "preso.html#yaml-file---infrastructure",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Infrastructure",
+    "text": "YAML File - Infrastructure\n\n\nclouds:\n  - ram: 32000\n    cpu: 100\n    hdd: 20000\n    name: \"wan\"\n  - ram: 16000\n    cpu: 50\n    hdd: 10000\n    name: \"edge\"\nDeclare list of clouds with a\n\n\nname\ncpu\nstorage\nmemory",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---infrastructure-1",
+    "href": "preso.html#yaml-file---infrastructure-1",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Infrastructure",
+    "text": "YAML File - Infrastructure\n\n\nnfs:\n  - name: \"NF1\"\n    ram: 100\n    cpu: 9\n    hdd: 1234\n  - name: \"NF2\"\n    ram: 100\n    cpu: 9\n    hdd: 1234\nDeclare list of network functions with a\n\n\nname\ncpu\nstorage\nmemory",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---infrastructure-2",
+    "href": "preso.html#yaml-file---infrastructure-2",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Infrastructure",
+    "text": "YAML File - Infrastructure\n\n\npolicies:\n  - type: \"NfMgr\"\n    policy: \"first-available-method\"\n  - type: \"SliceMgr\"\n    policy: \"first-available-method\"\n“Plug-in” your algorithms at pre-defined hooks\n\n\nType\n\nSpecifies manager entity\n\nPolicy\n\nSpecifies type of algorithm\n\n\nExtendable* by anyone!\n\n\n\n\n*More hooks will be made available in next releases",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---slice-infrastructure",
+    "href": "preso.html#yaml-file---slice-infrastructure",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Slice Infrastructure",
+    "text": "YAML File - Slice Infrastructure\n\n\nslices:\n  - name : \"Video Streaming\"\n    composition:\n      - nf : \"NF1\"\n        weight : 20\n      - nf : \"NF2\"\n        weight : 20\n      - nf : \"NF3\"\n        weight : 20\n      - nf : \"NF4\"\n        weight : 20\n“Compose” a slice using a network function as an order of weights\n\nFor each slice, there is a :\n\nname\nNF composition list, where each item contains:\n\nnf name\n% of that NF, which makes up this slice",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---service-infrastructure",
+    "href": "preso.html#yaml-file---service-infrastructure",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Service Infrastructure",
+    "text": "YAML File - Service Infrastructure\n\n\nservices:\n  - name : \"gold\"\n    composition:\n      - slice : \"Emergency\"\n        weight : 30\n      - slice : \"Video Streaming\"\n        weight : 55\n“Compose” a service using one or more slices as an order of weights\n\nFor each service, there is:\n\nname\nSlice composition list, where each item contains:\n\nslice name\n% of that slice, which makes up this Service",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---slicelets",
+    "href": "preso.html#yaml-file---slicelets",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - Slicelets",
+    "text": "YAML File - Slicelets\n\n\nslicelets:\n  - name : \"slicelet1\"\n    service : \"gold\"\n    duration : 60\n  - name : \"slicelet2\"\n    service : \"silver\"\n    duration : 60\n  - name : \"slicelet3\"\n    service : \"gold\"\n    duration : 60\nModels user traffic in the form of slicelet(s)\n\nA list containing:\n\nslicelet name\nA composition list, where each item contains:\n\nservice name\nduration of usage (in secs)",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#yaml-file---make-slicelets",
+    "href": "preso.html#yaml-file---make-slicelets",
+    "title": "Slicenet v0.8",
+    "section": "YAML File - make-Slicelets 1",
+    "text": "YAML File - make-Slicelets 1\n\n\nmake-slicelets:\n  count : 100 \n  duration_range : 5\n  service-slicelet-mapping :\n    - service : 'gold'\n      weight : 50 \n    - service : 'silver'\n      weight : 50 \nAutomate slicelet generation with make-slicelets\n\n\nTotal slicelets to be generated 2\nrandon duration to be assigned\nload balancing slicelet allocation based on weightage 3\n\n\n\ncannot be used with sliceletsslicelet will be named as slicelet-[1-N] for N countEg gold weight 20 means 20% of N slicelets will be assigned to gold service",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#csv-file-based-inference",
+    "href": "preso.html#csv-file-based-inference",
+    "title": "Slicenet v0.8",
+    "section": "CSV file based inference",
+    "text": "CSV file based inference\nFor every experiment, slicenet will generate 2 CSV files with the following format :\n\n&lt;exp name&gt;_&lt;exp timestamp&gt;-slicelets.csv\n&lt;exp name&gt;_&lt;exp timestamp&gt;-infra.csv\n\n\n\n\n\n\n\n\n\n\n\n\nEpoch\nName\nID\nAdmitted?\nScheduled At\nStarted At\nEnded At\nOverall Delay(sec)\n\n\n\n\n0\n1\nslicelet-gold-0\n013b5bbc-2d68-4f82-a0d0-8df5ea3dc2c1\nTrue\n2024-01-12 17:11:43\n2024-01-12 17:13:21\n2024-01-12 17:13:25\n98.285570\n\n\n1\n1\nslicelet-gold-1\n74a45e99-e27f-46e5-bce7-8dffb726a4c1\nTrue\n2024-01-12 17:11:44\n2024-01-12 17:12:14\n2024-01-12 17:12:14\n30.087168\n\n\n2\n1\nslicelet-gold-2\n773a51f3-ddda-4871-b1ba-87c133ff55d0\nTrue\n2024-01-12 17:11:42\n2024-01-12 17:12:49\n2024-01-12 17:12:49\n67.212234\n\n\n3\n1\nslicelet-gold-3\n233cc127-71a2-44e6-a690-64485cd3325b\nTrue\n2024-01-12 17:11:46\n2024-01-12 17:13:12\n2024-01-12 17:13:15\n86.257871\n\n\n4\n1\nslicelet-gold-4\n9f41a5fa-267e-46f3-806e-9d140367aef5\nTrue\n2024-01-12 17:11:42\n2024-01-12 17:11:58\n2024-01-12 17:12:00\n16.047042\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEntity\nName\nID\nAdmitted?\nEvent History\n\n\n\n\n0\nCloud\nwan\n5b2a1456-0fe4-41af-a8ed-1d2c56e9f663\nTrue\n{}\n\n\n1\nCloud\nedge\n83549ad8-26d6-4856-bbca-b60d20829a7c\nTrue\n{}\n\n\n2\nNFs\nNF1\n1e4f402a-43a5-4d09-b6cd-7c1586f16413\nTrue\n{}\n\n\n3\nNFs\nNF2\n0b0d17af-5389-424f-b92e-4e0bd00354f5\nTrue\n{}\n\n\n4\nNFs\nNF3\n8ba9dce5-8bf1-4660-9c64-c7a35bf5d77f\nTrue\n{}",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#glimpse-of-what-you-can-do-with-the-inference",
+    "href": "preso.html#glimpse-of-what-you-can-do-with-the-inference",
+    "title": "Slicenet v0.8",
+    "section": "Glimpse of what you can do with the inference",
+    "text": "Glimpse of what you can do with the inference",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#experiments-python-api",
+    "href": "preso.html#experiments-python-api",
+    "title": "Slicenet v0.8",
+    "section": "Experiments Python API",
+    "text": "Experiments Python API\n1from slicenet.utils.experimentMgr import ExperimentMgr\n\n2ctxMgr = ExperimentMgr()\n\n1\n\nExperimentMgr provides all the necessary functions to load, conduct & infer experiments\n\n2\n\ncreating an instance of ExperimentMgr class serves as a content mgr\n\n\nBrand new module from slicenet package to deal with Experiments",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#experiments-python-api-1",
+    "href": "preso.html#experiments-python-api-1",
+    "title": "Slicenet v0.8",
+    "section": "Experiments Python API",
+    "text": "Experiments Python API\nfrom slicenet.utils.experimentMgr import ExperimentMgr\n\nctxMgr = ExperimentMgr()\n1config_yamls = ['config1.yaml', 'config2.yaml']\n2ctxMgr.loadExperimentsFromFiles(config_yaml)\n\n1\n\nload list of configuration yaml files\n\n2\n\nuse loadExperimentsFromFiles() to load one or more experiments\n\n\nloadExperimentsFromFiles can be used to load experiments from 1 or more configuration files",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#experiments-python-api-2",
+    "href": "preso.html#experiments-python-api-2",
+    "title": "Slicenet v0.8",
+    "section": "Experiments Python API",
+    "text": "Experiments Python API\nfrom slicenet.utils.experimentMgr import ExperimentMgr\n\nctxMgr = ExperimentMgr()\n1ctxMgr.loadExperimentsFromDir(in_dir = 'path/to/dir')\n\n1\n\nOr from a directory containing config files 1\n\n\nloadExperimentsFromDir makes it even more easy to automate experimentations 👨🏻‍💻\nonly *.yaml files will be scanned",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#experiments-python-api-3",
+    "href": "preso.html#experiments-python-api-3",
+    "title": "Slicenet v0.8",
+    "section": "Experiments Python API",
+    "text": "Experiments Python API\nfrom slicenet.utils.experimentMgr import ExperimentMgr\n\nctxMgr = ExperimentMgr()\nconfig_yamls = ['config1.yaml', 'config2.yaml']\nctxMgr.loadExperimentsFromFiles(config_yaml)\n1ctxMgr.deployAndLaunch()\n2ctxMgr.saveInference()\nlogger.info(f\"Done experiment\")\n\n1\n\nOnce experiments have been loaded, deployAndLaunch() can be used to start experiments\n\n2\n\nsaveInference() produces the *.csv files for each experiment",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#experiments-python-api-one-more-thing..",
+    "href": "preso.html#experiments-python-api-one-more-thing..",
+    "title": "Slicenet v0.8",
+    "section": "Experiments Python API | One more thing..",
+    "text": "Experiments Python API | One more thing..\nLogging support 1\nimport logging\n\n# Get the base name of the script without the extension\nscript_name = os.path.splitext(os.path.basename(__file__))[0]\n\n# Use the script name as the log file name\nlog_file_name = f\"{script_name}.log\"\n\nlogger = logging.getLogger(script_name)\nlogging.basicConfig(format='%(asctime)s.%(msecs)03d %(name)s %(module)s  \\\n    %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', \\ \n    level=logging.INFO, filename=log_file_name)\n\n\n\n\nreturn to homepage\n\n\nslicenet.logger supports ERROR, INFO, DEBUG loglevels.",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  }
+]
