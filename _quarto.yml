@@ -6,6 +6,9 @@ project:
     browser: false
 
 website:
+  site-url: "https://kspviswa.github.io/slicenet-demo"
+  favicon: "slicenet-1-tr-logo.png"
+  title: "Slicenet Demo & Dashboard"
   sidebar:
     style: "docked"
     search: true
