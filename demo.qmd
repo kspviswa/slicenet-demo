@@ -10,6 +10,9 @@ format:
 #  {.sidebar}
 
 ![](slicenet-1-tr-logo.png)
+<br>
+<br>
+<a href="https://kspviswa.github.io/slicenet-demo"> return to homepage</a>
 
 # Overall View (Experiment vs Slicelet Admissions)
 

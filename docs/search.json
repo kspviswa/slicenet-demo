@@ -143,7 +143,7 @@
     "href": "preso.html#glimpse-of-what-you-can-do-with-the-inference",
     "title": "Slicenet v0.8",
     "section": "Glimpse of what you can do with the inference",
-    "text": "Glimpse of what you can do with the inference",
+    "text": "Glimpse of what you can do with the inference\n Click here",
     "crumbs": [
       "Features",
       "Slicenet v0.8"
@@ -198,7 +198,18 @@
     "href": "preso.html#experiments-python-api-one-more-thing..",
     "title": "Slicenet v0.8",
     "section": "Experiments Python API | One more thing..",
-    "text": "Experiments Python API | One more thing..\nLogging support 1\nimport logging\n\n# Get the base name of the script without the extension\nscript_name = os.path.splitext(os.path.basename(__file__))[0]\n\n# Use the script name as the log file name\nlog_file_name = f\"{script_name}.log\"\n\nlogger = logging.getLogger(script_name)\nlogging.basicConfig(format='%(asctime)s.%(msecs)03d %(name)s %(module)s  \\\n    %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', \\ \n    level=logging.INFO, filename=log_file_name)\n\n\n\n\nreturn to homepage\n\n\nslicenet.logger supports ERROR, INFO, DEBUG loglevels.",
+    "text": "Experiments Python API | One more thing..\nLogging support 1\nimport logging\n\n# Get the base name of the script without the extension\nscript_name = os.path.splitext(os.path.basename(__file__))[0]\n\n# Use the script name as the log file name\nlog_file_name = f\"{script_name}.log\"\n\nlogger = logging.getLogger(script_name)\nlogging.basicConfig(format='%(asctime)s.%(msecs)03d %(name)s %(module)s  \\\n    %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', \\ \n    level=logging.INFO, filename=log_file_name)\nslicenet.logger supports ERROR, INFO, DEBUG loglevels.",
+    "crumbs": [
+      "Features",
+      "Slicenet v0.8"
+    ]
+  },
+  {
+    "objectID": "preso.html#return-to-home-page",
+    "href": "preso.html#return-to-home-page",
+    "title": "Slicenet v0.8",
+    "section": "Return to home page ",
+    "text": "Return to home page",
     "crumbs": [
       "Features",
       "Slicenet v0.8"

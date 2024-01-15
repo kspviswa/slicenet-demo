@@ -2,7 +2,6 @@
 title: Slicenet v0.8
 subtitle:  Changes & Highlights
 logo: slicenet-1-tr-logo.png
-footer: return to homepage
 format:
     revealjs: 
         theme: solarized
@@ -272,8 +271,7 @@ df_2.head()
 
 ## Glimpse of what you can do with the inference
 
-###
-<iframe class="stretch" data-src="kspviswa.github.io/sliceet-demo/demo"></iframe>
+<a href="https://kspviswa.github.io/slicenet-demo/demo.html"> Click here </a>
 
 ## Experiments Python API {auto-animate="true"}
 
@@ -345,5 +343,7 @@ logging.basicConfig(format='%(asctime)s.%(msecs)03d %(name)s %(module)s  \
     %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', \ 
     level=logging.INFO, filename=log_file_name) #<4>
 ```
+
+## <a href="https://kspviswa.github.io/slicenet-demo">Return to home page </a>
 
 
