@@ -20,5 +20,7 @@ website:
 format:
   html:
     theme: sketchy
-  revealjs: 
+  revealjs:
+    theme: sketchy
   dashboard:
+    theme: sketchy
