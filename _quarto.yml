@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: out
+  preview:
+    port: 4300
+    browser: false
+
+website:
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Features"
+        contents:
+          - preso.qmd
+      - section: "Dashboard"
+        contents:
+          - demo.qmd
+
+format:
+  html:
+    theme: sketchy
+  revealjs: 
+    theme: sketchy
+  dashboard: 
+    theme: sketchy

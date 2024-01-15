@@ -1,0 +1,10 @@
+Entity,Name,ID,Admitted?,Event History
+Cloud,wan,5b2a1456-0fe4-41af-a8ed-1d2c56e9f663,True,{}
+Cloud,edge,83549ad8-26d6-4856-bbca-b60d20829a7c,True,{}
+NFs,NF1,1e4f402a-43a5-4d09-b6cd-7c1586f16413,True,{}
+NFs,NF2,0b0d17af-5389-424f-b92e-4e0bd00354f5,True,{}
+NFs,NF3,8ba9dce5-8bf1-4660-9c64-c7a35bf5d77f,True,{}
+NFs,NF4,d31f556a-ad2a-4ecc-a8b4-b06ba8f3567b,True,{}
+NFs,NF5,d3aeb4e4-1099-4957-ae9a-de69a6414091,True,{}
+Slices,Video Streaming,be68acfe-cfd4-4e87-99ad-69e3eca9a49d,True,{}
+Slices,Emergency,bcf62885-775a-4cbb-90a6-9f5441137d13,True,{}

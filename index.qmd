@@ -1,0 +1,15 @@
+---
+title: Slicenet Demo & Dashboards
+image: slicenet-1-tr-logo.png
+format: html
+about:
+  template: jolla
+  image-width: 20em
+  image-shape: round
+page-layout: full
+toc: false
+---
+
+## Slicenet
+
+## A mininet like simulator for Network Slice Management

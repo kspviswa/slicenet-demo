@@ -1,0 +1,349 @@
+---
+title: Slicenet v0.8
+subtitle:  Changes & Highlights
+logo: slicenet-1-tr-logo.png
+footer: return to homepage
+format:
+    revealjs: 
+        theme: solarized
+        code-overflow: wrap
+        code-annotations: below
+engine: jupyter
+---
+
+## Big themes in Slicenet v0.8
+
+- YAML based experiment topology & traffic creation
+- Out of box traffic pattern options
+- CSV based inference for insightful reports
+- Automation of slicelets
+
+# Deep Dive {.center}
+
+## YAML File - Experiment Metadata
+
+```{.python code-line-numbers="1,2"}
+name: "config1-example"
+description: "description"
+delay_pattern : "exponential" 
+delay_pattern_threshold : 2 
+epoch: 1
+```
+
+Name & Description of this experiment
+
+## YAML File - Traffic metadata
+:::: {.columns}
+::: {.column width="50%"}
+
+```{.python code-line-numbers="3,4"}
+name: "config1-example"
+description: "description"
+delay_pattern : "exponential" 
+delay_pattern_threshold : 2 
+epoch: 1
+```
+Traffic *__delay__* pattern for the incoming slicelets.
+:::
+::: {.column width="50%"}
+It takes 3 values :
+
+- default
+- exponential
+- uniform
+:::
+::::
+
+## YAML File - Training metadata
+
+```{.python code-line-numbers="5"}
+name: "config1-example"
+description: "description"
+delay_pattern : "exponential" 
+delay_pattern_threshold : 2 
+epoch: 1
+```
+Training **_epoch_** count
+
+- It takes any non-negative value and make slicenet to repeat this experiment for this number of items
+
+## YAML File - Infrastructure
+:::: {.columns}
+::: {.column width=50%}
+
+```{.python code-line-numbers="1-5"}
+clouds:
+  - ram: 32000
+    cpu: 100
+    hdd: 20000
+    name: "wan"
+  - ram: 16000
+    cpu: 50
+    hdd: 10000
+    name: "edge"
+```
+Declare list of clouds with a
+:::
+
+::: {.column width=50%}
+- name
+- cpu
+- storage
+- memory
+:::
+::::
+
+## YAML File - Infrastructure
+:::: {.columns}
+::: {.column width=50%}
+```{.python code-line-numbers="1-5"}
+nfs:
+  - name: "NF1"
+    ram: 100
+    cpu: 9
+    hdd: 1234
+  - name: "NF2"
+    ram: 100
+    cpu: 9
+    hdd: 1234
+```
+Declare list of network functions with a
+:::
+::: {.column width=50%}
+
+- name
+- cpu
+- storage
+- memory
+:::
+::::
+
+## YAML File - Infrastructure
+:::: {.columns}
+::: {.column width=55%}
+```{.python code-line-numbers="1-5"}
+policies:
+  - type: "NfMgr"
+    policy: "first-available-method"
+  - type: "SliceMgr"
+    policy: "first-available-method"
+```
+"Plug-in" your algorithms at pre-defined hooks
+:::
+::: {.column width=45%}
+
+- Type
+    - Specifies manager entity
+- Policy
+    - Specifies type of algorithm
+
+Extendable* by anyone!
+:::
+::::
+
+::: aside
+*More hooks will be made available in next releases
+:::
+
+## YAML File - Slice Infrastructure
+:::: {.columns}
+::: {.column width=55%}
+```{.python code-line-numbers="1-7"}
+slices:
+  - name : "Video Streaming"
+    composition:
+      - nf : "NF1"
+        weight : 20
+      - nf : "NF2"
+        weight : 20
+      - nf : "NF3"
+        weight : 20
+      - nf : "NF4"
+        weight : 20
+```
+"Compose" a slice using a network function as an order of weights
+:::
+::: {.column width=45%}
+For each slice, there is a :
+
+- name
+- NF composition list, where each item contains:
+    - `nf` name
+    - `%` of that NF, which makes up this slice
+:::
+::::
+
+## YAML File - Service Infrastructure
+:::: {.columns}
+::: {.column width=55%}
+```{.python code-line-numbers=True}
+services:
+  - name : "gold"
+    composition:
+      - slice : "Emergency"
+        weight : 30
+      - slice : "Video Streaming"
+        weight : 55
+```
+"Compose" a service using one or more slices as an order of weights
+:::
+::: {.column width=45%}
+For each service, there is:
+
+- name
+- Slice composition list, where each item contains:
+    - `slice` name
+    - `%` of that slice, which makes up this Service
+:::
+::::
+
+## YAML File - Slicelets
+:::: {.columns}
+::: {.column width=55%}
+```{.python code-line-numbers="1-4"}
+slicelets:
+  - name : "slicelet1"
+    service : "gold"
+    duration : 60
+  - name : "slicelet2"
+    service : "silver"
+    duration : 60
+  - name : "slicelet3"
+    service : "gold"
+    duration : 60
+```
+Models user traffic in the form of `slicelet`(s)
+:::
+::: {.column width=45%}
+A list containing:
+
+- `slicelet` name
+-  A composition list, where each item contains:
+    - `service` name
+    - `duration` of usage (in secs)
+:::
+::::
+
+## YAML File - `make-`Slicelets ^[cannot be used with `slicelets`]
+:::: {.columns}
+::: {.column width=55%}
+```{.python code-line-numbers="1-6"}
+make-slicelets:
+  count : 100 
+  duration_range : 5
+  service-slicelet-mapping :
+    - service : 'gold'
+      weight : 50 
+    - service : 'silver'
+      weight : 50 
+```
+Automate slicelet generation with `make-`slicelets
+:::
+::: {.column width=45%}
+
+- Total slicelets to be generated ^[slicelet will be named as `slicelet-[1-N]` for `N` count]
+- randon duration to be assigned
+- load balancing slicelet allocation based on weightage ^[Eg `gold weight 20` means `20%` of `N` slicelets will be assigned to `gold` service]
+:::
+::::
+
+## CSV file based inference
+
+For every experiment, slicenet will generate 2 `CSV` files with the following format :
+
+- `<exp name>_<exp timestamp>-slicelets.csv`
+- `<exp name>_<exp timestamp>-infra.csv`
+
+:::: {.coloumns style="font-size: 10px;"}
+::: {.coloumn width="70%"}
+```{python}
+import pandas as pd
+df_1 = pd.read_csv('csv/file2.csv')
+df_1.head()
+```
+:::
+::: {.coloumn width="30%"}
+```{python}
+df_2 = pd.read_csv('csv/example_08012024182725-infra.csv')
+df_2.head()
+```
+:::
+::::
+
+## Glimpse of what you can do with the inference
+
+###
+<iframe class="stretch" data-src="kspviswa.github.io/sliceet-demo/demo"></iframe>
+
+## Experiments Python API {auto-animate="true"}
+
+```{.python code-line-numbers="true"}
+from slicenet.utils.experimentMgr import ExperimentMgr #<1>
+
+ctxMgr = ExperimentMgr() #<2>
+```
+1. `ExperimentMgr` provides all the necessary functions to load, conduct & infer experiments
+2. creating an instance of `ExperimentMgr` class serves as a content mgr
+
+Brand new module from slicenet package to deal with Experiments
+
+## Experiments Python API {auto-animate="true"}
+
+```{.python code-line-numbers="4-5"}
+from slicenet.utils.experimentMgr import ExperimentMgr
+
+ctxMgr = ExperimentMgr()
+config_yamls = ['config1.yaml', 'config2.yaml'] #<1>
+ctxMgr.loadExperimentsFromFiles(config_yaml) #<2>
+```
+1. load list of configuration `yaml` files
+2. use `loadExperimentsFromFiles()` to load one or more experiments
+
+`loadExperimentsFromFiles` can be used to load experiments from 1 or more configuration files
+
+## Experiments Python API {auto-animate="true"}
+
+```{.python code-line-numbers="4"}
+from slicenet.utils.experimentMgr import ExperimentMgr
+
+ctxMgr = ExperimentMgr()
+ctxMgr.loadExperimentsFromDir(in_dir = 'path/to/dir') #<1>
+```
+1. Or from a directory containing config files ^[only `*.yaml` files will be scanned]
+
+`loadExperimentsFromDir` makes it even more easy to automate experimentations 👨🏻‍💻 
+
+## Experiments Python API {auto-animate="true"}
+
+```{.python code-line-numbers="6-8"}
+from slicenet.utils.experimentMgr import ExperimentMgr
+
+ctxMgr = ExperimentMgr()
+config_yamls = ['config1.yaml', 'config2.yaml']
+ctxMgr.loadExperimentsFromFiles(config_yaml)
+ctxMgr.deployAndLaunch() #<1>
+ctxMgr.saveInference() #<2>
+logger.info(f"Done experiment")
+```
+1. Once experiments have been loaded, `deployAndLaunch()` can be used to start experiments
+2. `saveInference()` produces the `*.csv` files for each experiment
+
+## Experiments Python API | One more thing.. {auto-animate="true"}
+### Logging support ^[`slicenet.logger` supports `ERROR, INFO, DEBUG` loglevels.]
+
+```{.python code-line-numbers="true"}
+import logging #<1>
+
+# Get the base name of the script without the extension
+script_name = os.path.splitext(os.path.basename(__file__))[0] #<2>
+
+# Use the script name as the log file name
+log_file_name = f"{script_name}.log" #<2>
+
+logger = logging.getLogger(script_name) #<3>
+logging.basicConfig(format='%(asctime)s.%(msecs)03d %(name)s %(module)s  \
+    %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', \ 
+    level=logging.INFO, filename=log_file_name) #<4>
+```
+
+

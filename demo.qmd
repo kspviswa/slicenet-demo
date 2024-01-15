@@ -1,0 +1,184 @@
+---
+title: "Slicenet Demo"
+format: 
+  dashboard:
+    orientation: rows
+    theme: sketchy
+    logo: slicenet-1-tr-logo.png
+---
+
+#  {.sidebar}
+
+![](slicenet-1-tr-logo.png)
+
+# Overall View (Experiment vs Slicelet Admissions)
+
+## Row 1
+
+::: {.valuebox icon="speedometer2"}
+Total number of slicelets
+
+100
+:::
+
+::: {.valuebox icon="stoplights"}
+Traffic Patterns
+
+3
+:::
+
+::: {.valuebox icon="pie-chart"}
+Service Types
+
+2
+:::
+
+::: {.valuebox icon="bucket"}
+Slicelet / Service ratio
+
+2
+:::
+
+## Row 2
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+df2 = pd.read_csv('csv/file2.csv')
+df3 = pd.read_csv('csv/file3.csv')
+df4 = pd.read_csv('csv/file4.csv')
+df5 = pd.read_csv('csv/file5.csv')
+df6 = pd.read_csv('csv/file6_normal_20_80.csv')
+df7 = pd.read_csv('csv/file7_normal_50_50.csv')
+
+
+# df2 is exponential with 50-50
+df2_admitted = df2[df2['Admitted?'] == True]
+df2_admitted_count = df2_admitted['Admitted?'].sum()
+
+# df3 is default with 50-50
+df3_admitted = df3[df3['Admitted?'] == True]
+df3_admitted_count = df3_admitted['Admitted?'].sum()
+
+#df4 is exponential with 20-80
+df4_admitted = df4[df4['Admitted?'] == True]
+df4_admitted_count = df4_admitted['Admitted?'].sum()
+
+#df5 is default with 20-80
+df5_admitted = df5[df5['Admitted?'] == True]
+df5_admitted_count = df5_admitted['Admitted?'].sum()
+
+#df6 is normal with 20-80
+df6_admitted = df6[df6['Admitted?'] == True]
+df6_admitted_count = df6_admitted['Admitted?'].sum()
+
+#df7 is normal with 50-80
+df7_admitted = df7[df7['Admitted?'] == True]
+df7_admitted_count = df7_admitted['Admitted?'].sum()
+
+comparison = {'# slicelets admitted' : [df2_admitted_count, df3_admitted_count, df7_admitted_count, df4_admitted_count, df5_admitted_count, df6_admitted_count], 'experiments' : ['Experiment 1', 'Experiment 2', 'Experiment 5', 'Experiment 3', 'Experiment 4', 'Experiment 6'], 'traffic pattern' : ['exponential', 'default', 'normal', 'exponential', 'default', 'normal'], 'service weightage' : ['50/50', '50/50', '50/50', '20/80', '20/80', '20/80'] }
+final_df = pd.DataFrame(comparison)
+
+fig = px.bar(final_df, x="experiments", y="# slicelets admitted", color="traffic pattern", pattern_shape="service weightage", text_auto = True)
+
+legend=dict(
+    yanchor="top",
+    y=0.99,
+)
+
+fig.update_layout(title = "Slicelet Admitted Count by Experiment Type", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title=None, legend=legend)
+
+```
+
+# Detailed View (Experiment vs Slicelet Admission Delay)
+
+## Row 1 {.tabset}
+
+```{python}
+#| title: Experiment 1
+fig_a = px.line(df2_admitted, x="Name", y="Overall Delay(sec)", markers=True)
+fig_a.update_layout(title = "Admitted Slicelet Delays for Experiment 1", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+```
+
+```{python}
+#| title: Experiment 2
+fig_b = px.line(df3_admitted, x="Name", y="Overall Delay(sec)", markers=True)
+fig_b.update_layout(title = "Admitted Slicelet Delays for Experiment 2", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+```
+
+```{python}
+#| title: Experiment 3
+fig_c = px.line(df7_admitted, x="Name", y="Overall Delay(sec)", markers=True)
+fig_c.update_layout(title = "Admitted Slicelet Delays for Experiment 3", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+```
+
+```{python}
+#| title: Experiment 4
+fig_d = px.line(df4_admitted, x="Name", y="Overall Delay(sec)", markers=True)
+fig_d.update_layout(title = "Admitted Slicelet Delays for Experiment 4", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+```
+
+```{python}
+#| title: Experiment 5
+fig_e = px.line(df5_admitted, x="Name", y="Overall Delay(sec)", markers=True)
+fig_e.update_layout(title = "Admitted Slicelet Delays for Experiment 5", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+```
+
+```{python}
+#| title: Experiment 6
+fig_f = px.line(df6_admitted, x="Name", y="Overall Delay(sec)", markers=True)
+fig_e.update_layout(title = "Admitted Slicelet Delays for Experiment 6", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+```
+
+<!-- # Flow of events
+
+```{python}
+df = px.data.iris()
+fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species",
+                 size='petal_length', hover_data=['petal_width'])
+fig.show()
+```
+
+```{python}
+df2_admitted_E1 = df2_admitted[['Name', 'Scheduled At']]
+
+#print(df2_admitted_E1)
+
+df2_admitted_E2 = df2_admitted[['Name','Started At']]
+
+#print(df2_admitted_E2)
+
+df2_admitted_E3 = df2_admitted[['Name','Ended At']]
+
+#print(df2_admitted_E3)
+
+df2_admitted_totalE = pd.concat([df2_admitted_E1,df2_admitted_E2, df2_admitted_E3], ignore_index=True)
+
+#df2_admitted_totalE = pd.DataFrame(df2_admitted_totalE, columns=['Slicelets', 'Timestamps'])
+
+print(df2_admitted_totalE)
+
+#isinstance(df2_admitted_totalE, pd.DataFrame)
+
+#df2_admitted_totalE
+
+#headers = ['Timestamps']
+#df2_admitted_totalE.columns = headers
+#print(df2_admitted_totalE)
+
+text_E1 = ['Scheduled'] * df2_admitted_E1.shape[0]
+text_E2 = ['Started'] * df2_admitted_E2.shape[0]
+text_E3 = ['Ended'] * df2_admitted_E3.shape[0]
+total_texts_E = text_E1 + text_E2 + text_E3
+
+df2_admitted_totalE['Events'] = total_texts_E
+
+df2_admitted_totalE = df2_admitted_totalE.sort_values(by='Timestamps')
+
+#px.scatter(df2_admitted_totalE, x='Timestamps', y='Slicelets', color='Events')
+
+#df2_admitted_totalE
+
+``` -->
