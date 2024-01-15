@@ -25,5 +25,6 @@ format:
     theme: sketchy
   revealjs:
     theme: sketchy
+    embed-resources: true
   dashboard:
     theme: sketchy
