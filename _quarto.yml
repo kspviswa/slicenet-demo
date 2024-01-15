@@ -21,6 +21,4 @@ format:
   html:
     theme: sketchy
   revealjs: 
-    theme: sketchy
-  dashboard: 
-    theme: sketchy
+  dashboard:
