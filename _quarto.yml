@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: out
+  output-dir: docs
   preview:
     port: 4300
     browser: false
