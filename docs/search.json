@@ -11,7 +11,7 @@
     "href": "preso.html#big-themes-in-slicenet-v0.8",
     "title": "Slicenet v0.8",
     "section": "Big themes in Slicenet v0.8",
-    "text": "Big themes in Slicenet v0.8\n\nYAML based experiment topology & traffic creation\nOut of box traffic pattern options\nCSV based inference for insightful reports\nAutomation of slicelets",
+    "text": "Big themes in Slicenet v0.8\n\nYAML based topology & traffic creation for experiments\nOut of box traffic pattern options with multithreading support\nCSV based inference for insightful reports\nAutomation of slicelets generation",
     "crumbs": [
       "Features",
       "Slicenet v0.8"
@@ -22,7 +22,7 @@
     "href": "preso.html#yaml-file---experiment-metadata",
     "title": "Slicenet v0.8",
     "section": "YAML File - Experiment Metadata",
-    "text": "YAML File - Experiment Metadata\nname: \"config1-example\"\ndescription: \"description\"\ndelay_pattern : \"exponential\" \ndelay_pattern_threshold : 2 \nepoch: 1\nName & Description of this experiment",
+    "text": "YAML File - Experiment Metadata\nname: \"config1-example\"\ndescription: \"description\"\ndelay_pattern : \"exponential\" \ndelay_pattern_threshold : 2 \nepoch: 1\nName & Description of this experiment. name is used for the CSV report generation.",
     "crumbs": [
       "Features",
       "Slicenet v0.8"
@@ -33,7 +33,7 @@
     "href": "preso.html#yaml-file---traffic-metadata",
     "title": "Slicenet v0.8",
     "section": "YAML File - Traffic metadata",
-    "text": "YAML File - Traffic metadata\n\n\nname: \"config1-example\"\ndescription: \"description\"\ndelay_pattern : \"exponential\" \ndelay_pattern_threshold : 2 \nepoch: 1\nTraffic delay pattern for the incoming slicelets.\n\nIt takes 3 values :\n\ndefault\nexponential\nuniform",
+    "text": "YAML File - Traffic metadata\n\n\nname: \"config1-example\"\ndescription: \"description\"\ndelay_pattern : \"exponential\" \ndelay_pattern_threshold : 2 \nepoch: 1\nDelays slicelets (user traffic) as per delay_pattern, limited by delay_pattern_threshold\n\n\n\nTakes 3 values :\n\ndefault 1\nexponential 2\nuniform 3\n\n\n\nno delaysdelays added as per exponential distributiondelays added as per uniform distribution",
     "crumbs": [
       "Features",
       "Slicenet v0.8"
@@ -121,7 +121,7 @@
     "href": "preso.html#yaml-file---make-slicelets",
     "title": "Slicenet v0.8",
     "section": "YAML File - make-Slicelets 1",
-    "text": "YAML File - make-Slicelets 1\n\n\nmake-slicelets:\n  count : 100 \n  duration_range : 5\n  service-slicelet-mapping :\n    - service : 'gold'\n      weight : 50 \n    - service : 'silver'\n      weight : 50 \nAutomate slicelet generation with make-slicelets\n\n\nTotal slicelets to be generated 2\nrandon duration to be assigned\nload balancing slicelet allocation based on weightage 3\n\n\n\ncannot be used with sliceletsslicelet will be named as slicelet-[1-N] for N countEg gold weight 20 means 20% of N slicelets will be assigned to gold service",
+    "text": "YAML File - make-Slicelets 1\n\n\nmake-slicelets:\n  count : 100 \n  duration_range : 5\n  service-slicelet-mapping :\n    - service : 'gold'\n      weight : 50 \n    - service : 'silver'\n      weight : 50 \nAutomate slicelet generation with make-slicelets\n\n\nTotal slicelets to be generated 2\nrandom duration to be assigned 3\nload balancing slicelet allocation based on weightage 4\n\n\n\ncannot be used with sliceletsslicelet will be named as slicelet-[1-N] for N count\\(n \\in \\{1, ..., duration-range\\}\\)Eg for gold, weight : 20 means 20% of N slicelets will be assigned to gold service",
     "crumbs": [
       "Features",
       "Slicenet v0.8"

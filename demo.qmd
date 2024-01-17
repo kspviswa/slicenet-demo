@@ -9,12 +9,9 @@ format:
 
 #  {.sidebar}
 
-![](slicenet-1-tr-logo.png)
-<br>
-<br>
-<a href="https://kspviswa.github.io/slicenet-demo"> return to homepage</a>
+![](slicenet-1-tr-logo.png) <br> <br> <a href="https://kspviswa.github.io/slicenet-demo"> return to homepage</a>
 
-# Overall View (Experiment vs Slicelet Admissions)
+# Slicelet Admissions
 
 ## Row 1
 
@@ -91,97 +88,76 @@ legend=dict(
     y=0.99,
 )
 
-fig.update_layout(title = "Slicelet Admitted Count by Experiment Type", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title=None, legend=legend)
+fig.update_layout(title = "Slicelet Admitted Count by Experiment Type", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title=None, showlegend=False)
 
 ```
 
-# Detailed View (Experiment vs Slicelet Admission Delay)
+### Experiment Details
+
+| **Experiment \#** | **Gold Service %** | **Silver Service %** | **Slicelet Delay Pattern** |
+|-----------------|-----------------|-----------------|---------------------|
+| **Experiment 1**  | 50                 | 50                   | Exponential                |
+| **Experiment 2**  | 20                 | 80                   | Exponential                |
+| **Experiment 3**  | 50                 | 50                   | Default                    |
+| **Experiment 4**  | 20                 | 80                   | Default                    |
+| **Experiment 5**  | 50                 | 50                   | Normal                     |
+| **Experiment 6**  | 20                 | 80                   | Normal                     |
+
+: `Experiment Details`
+
+# Slicelet Admission Delay
 
 ## Row 1 {.tabset}
 
 ```{python}
 #| title: Experiment 1
-fig_a = px.line(df2_admitted, x="Name", y="Overall Delay(sec)", markers=True)
-fig_a.update_layout(title = "Admitted Slicelet Delays for Experiment 1", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+def showBar(df, name):
+  theFig = px.bar(df, x="Name", y="Overall Delay(sec)")
+  theFig.update_layout(title = f"Admitted Slicelet Delays for {name}", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', showlegend = True)
+  theFig.update_traces(marker_color='red')
+  theFig.show()
+
+#| title: Experiment 1
+#fig_a = px.line(df2_admitted, x="Name", y="Overall Delay(sec)", markers=True)
+#fig_a = px.bar(df2_admitted, x="Name", y="Overall Delay(sec)")
+#fig_a.update_layout(title = "Admitted Slicelet Delays for Experiment 1", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+#fig.update_traces(marker_color=['green' if y <= 5 else 'red' for y in df2_admitted ['Overall Delay(sec)']])
+
+showBar(df2_admitted, 'Experiment 1')
+
 ```
 
 ```{python}
 #| title: Experiment 2
-fig_b = px.line(df3_admitted, x="Name", y="Overall Delay(sec)", markers=True)
-fig_b.update_layout(title = "Admitted Slicelet Delays for Experiment 2", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+# fig_b = px.bar(df3_admitted, x="Name", y="Overall Delay(sec)")
+# fig_b.update_layout(title = "Admitted Slicelet Delays for Experiment 2", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+showBar(df3_admitted, 'Experiment 2')
 ```
 
 ```{python}
 #| title: Experiment 3
-fig_c = px.line(df7_admitted, x="Name", y="Overall Delay(sec)", markers=True)
-fig_c.update_layout(title = "Admitted Slicelet Delays for Experiment 3", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+# fig_c = px.bar(df7_admitted, x="Name", y="Overall Delay(sec)")
+# fig_c.update_layout(title = "Admitted Slicelet Delays for Experiment 3", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+showBar(df7_admitted, 'Experiment 3')
 ```
 
 ```{python}
 #| title: Experiment 4
-fig_d = px.line(df4_admitted, x="Name", y="Overall Delay(sec)", markers=True)
-fig_d.update_layout(title = "Admitted Slicelet Delays for Experiment 4", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+# fig_d = px.bar(df4_admitted, x="Name", y="Overall Delay(sec)")
+# fig_d.update_layout(title = "Admitted Slicelet Delays for Experiment 4", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+showBar(df4_admitted, 'Experiment 4')
 ```
 
 ```{python}
 #| title: Experiment 5
-fig_e = px.line(df5_admitted, x="Name", y="Overall Delay(sec)", markers=True)
-fig_e.update_layout(title = "Admitted Slicelet Delays for Experiment 5", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+# fig_e = px.bar(df5_admitted, x="Name", y="Overall Delay(sec)")
+# fig_e.update_layout(title = "Admitted Slicelet Delays for Experiment 5", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+showBar(df5_admitted, 'Experiment 5')
 ```
 
 ```{python}
 #| title: Experiment 6
-fig_f = px.line(df6_admitted, x="Name", y="Overall Delay(sec)", markers=True)
-fig_e.update_layout(title = "Admitted Slicelet Delays for Experiment 6", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+# fig_f = px.bar(df6_admitted, x="Name", y="Overall Delay(sec)")
+# fig_e.update_layout(title = "Admitted Slicelet Delays for Experiment 6", uniformtext_minsize=8, uniformtext_mode='hide', xaxis_title='Slicelet name', legend=legend)
+showBar(df6_admitted, 'Experiment 6')
 ```
-
-<!-- # Flow of events
-
-```{python}
-df = px.data.iris()
-fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species",
-                 size='petal_length', hover_data=['petal_width'])
-fig.show()
-```
-
-```{python}
-df2_admitted_E1 = df2_admitted[['Name', 'Scheduled At']]
-
-#print(df2_admitted_E1)
-
-df2_admitted_E2 = df2_admitted[['Name','Started At']]
-
-#print(df2_admitted_E2)
-
-df2_admitted_E3 = df2_admitted[['Name','Ended At']]
-
-#print(df2_admitted_E3)
-
-df2_admitted_totalE = pd.concat([df2_admitted_E1,df2_admitted_E2, df2_admitted_E3], ignore_index=True)
-
-#df2_admitted_totalE = pd.DataFrame(df2_admitted_totalE, columns=['Slicelets', 'Timestamps'])
-
-print(df2_admitted_totalE)
-
-#isinstance(df2_admitted_totalE, pd.DataFrame)
-
-#df2_admitted_totalE
-
-#headers = ['Timestamps']
-#df2_admitted_totalE.columns = headers
-#print(df2_admitted_totalE)
-
-text_E1 = ['Scheduled'] * df2_admitted_E1.shape[0]
-text_E2 = ['Started'] * df2_admitted_E2.shape[0]
-text_E3 = ['Ended'] * df2_admitted_E3.shape[0]
-total_texts_E = text_E1 + text_E2 + text_E3
-
-df2_admitted_totalE['Events'] = total_texts_E
-
-df2_admitted_totalE = df2_admitted_totalE.sort_values(by='Timestamps')
-
-#px.scatter(df2_admitted_totalE, x='Timestamps', y='Slicelets', color='Events')
-
-#df2_admitted_totalE
-
-``` -->

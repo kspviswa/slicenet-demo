@@ -12,10 +12,10 @@ engine: jupyter
 
 ## Big themes in Slicenet v0.8
 
-- YAML based experiment topology & traffic creation
-- Out of box traffic pattern options
+- YAML based topology & traffic creation for experiments
+- Out of box traffic pattern options with multithreading support
 - CSV based inference for insightful reports
-- Automation of slicelets
+- Automation of slicelets generation
 
 # Deep Dive {.center}
 
@@ -29,11 +29,11 @@ delay_pattern_threshold : 2
 epoch: 1
 ```
 
-Name & Description of this experiment
+Name & Description of this experiment. `name` is used for the CSV report generation.
 
 ## YAML File - Traffic metadata
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="60%"}
 
 ```{.python code-line-numbers="3,4"}
 name: "config1-example"
@@ -42,16 +42,19 @@ delay_pattern : "exponential"
 delay_pattern_threshold : 2 
 epoch: 1
 ```
-Traffic *__delay__* pattern for the incoming slicelets.
+*_Delays_* slicelets (user traffic) as per `delay_pattern`, limited by `delay_pattern_threshold`
 :::
-::: {.column width="50%"}
-It takes 3 values :
+::: {.column width="10%"}
+:::
+::: {.column width="30%"}
+Takes 3 values :
 
-- default
-- exponential
-- uniform
+- default ^[no delays]
+- exponential ^[delays added as per exponential distribution]
+- uniform ^[delays added as per uniform distribution]
 :::
 ::::
+
 
 ## YAML File - Training metadata
 
@@ -241,8 +244,8 @@ Automate slicelet generation with `make-`slicelets
 ::: {.column width=45%}
 
 - Total slicelets to be generated ^[slicelet will be named as `slicelet-[1-N]` for `N` count]
-- randon duration to be assigned
-- load balancing slicelet allocation based on weightage ^[Eg `gold weight 20` means `20%` of `N` slicelets will be assigned to `gold` service]
+- random duration to be assigned ^[$n \in \{1, ..., duration-range\}$]
+- load balancing slicelet allocation based on weightage ^[Eg for gold, `weight : 20` means `20%` of `N` slicelets will be assigned to `gold` service]
 :::
 ::::
 
